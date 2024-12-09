@@ -1,6 +1,5 @@
 with open(r'C:\Users\Redmi\PycharmProjects\Bookmarks\book.txt', encoding='utf-8', errors='replace') as file:
    file = file.readlines()
-   print(file)
 
 
 NAME_1 = file[0]
