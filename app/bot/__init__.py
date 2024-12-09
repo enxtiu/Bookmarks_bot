@@ -1,6 +1,3 @@
-def main():
-    pass
+from .tg_bot import *
 
-
-if __name__ == '__main__':
-    pass
+__all__ = ['main']
