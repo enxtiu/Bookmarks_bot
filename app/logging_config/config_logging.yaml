@@ -1,0 +1,47 @@
+version: 1
+disable_existing_loggers: False
+
+formatters:
+
+  default:
+    format: '#{levelname:8} @{name} {funcName}: {lineno} - {message}'
+    style: '{'
+
+  formatter_1:
+    format: '[{asctime}] #{levelname:8} @{name} {funcName}: {lineno} - {message}'
+    style: '{'
+
+filters:
+
+  fil_1:
+    (): app.logging_config.logger_filters.WarningErrorCritical
+
+  fil_2:
+    (): app.logging_config.logger_filters.DebugInfo
+
+
+handlers:
+
+  stderr:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: default
+    filters: [fil_2]
+
+  file_exp:
+    class: logging.FileHandler
+    filename: file_logging.log
+    mode: a
+    encoding: utf-8
+    level: DEBUG
+    formatter: formatter_1
+    filters: [fil_1]
+
+loggers:
+  __main__:
+    level: DEBUG
+    handlers: [file_exp, stderr]
+
+root:
+  level: DEBUG
+  handlers: [stderr]
