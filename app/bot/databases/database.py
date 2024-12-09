@@ -7,12 +7,8 @@ logger = logging.getLogger(__name__)
 
 class User:
 
-    def __init__(self, number_page: int, mark: dict[int, str] | None) -> None:
+    def __init__(self, number_page: int) -> None:
         self.number_page = number_page
-        self.mark = mark
-
-    def get_mark(self) -> dict[int, str]:
-        return self.mark
 
     def next_page(self) -> None:
         if len(BUTTONS) != self.number_page:
@@ -29,8 +25,11 @@ class User:
 class BookMarks(User):
 
     def __init__(self, mark: dict[int, str] | None, number_page: int | None = None) -> None:
-        super().__init__(number_page=number_page, mark=mark)
+        super().__init__(number_page=number_page)
         self.mark = mark
+
+    def get_mark(self) -> dict[int, str]:
+        return self.mark
 
     def save_mark(self, page: str):
         self.mark[self.number_page] = page

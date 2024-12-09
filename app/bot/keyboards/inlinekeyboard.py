@@ -6,7 +6,7 @@ from app.bot.lexicons.lexicon import BUTTONS
 
 logger = logging.getLogger(__name__)
 
-_buttons = {
+buttons = {
     '<<': '-1',
     f'1/{len(BUTTONS)+1}': '/bookmarks',
     '>>': '1'
@@ -20,4 +20,3 @@ def load_inline_keyboard(size: tuple[int, ...] = (3,), **kwargs: str) -> InlineK
 
     keyboard.adjust(*size)
     return keyboard.as_markup()
-

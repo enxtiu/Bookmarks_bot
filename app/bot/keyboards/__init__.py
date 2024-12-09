@@ -1,6 +1,4 @@
-def main():
-    pass
+from .inlinekeyboard import *
+from .menu import *
 
-
-if __name__ == '__main__':
-    pass
+__all__ = ['load_inline_keyboard', 'set_menu', 'buttons']
