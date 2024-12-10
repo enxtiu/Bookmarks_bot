@@ -14,7 +14,7 @@ async def get_begin_book(message: types.Message, user: User) -> None:
     user.begin_page()
     await message.answer(
         text=f'{NAME_1}\n\n\n{NAME_2}',
-        reply_markup=load_inline_keyboard(**buttons)
+        reply_markup=load_inline_keyboard(**buttons).as_markup()
     )
 
 @router.message(filters.Command(commands='continue'))
@@ -23,7 +23,7 @@ async def get_continue_book(message: types.Message, user: User) -> None:
         if user.number_page == k:
             await message.answer(
                 text=v,
-                reply_markup=load_inline_keyboard(**{'<<':'-1', f'{k}/{len(BUTTONS)}':'/bookmarks', '>>':'1'}))
+                reply_markup=load_inline_keyboard(**{'<<':'-1', f'{k}/{len(BUTTONS)}':'/bookmarks', '>>':'1'}).as_markup())
             return
 
     logger.info('Пользователь ещё не читал')
@@ -39,7 +39,7 @@ async def back_page(callback: types.CallbackQuery, user: User) -> None:
         await callback.message.edit_text(
             text=f'{BUTTONS[user.number_page]}',
             reply_markup=load_inline_keyboard(
-                **{'<<':'-1', f'{user.number_page}/{len(BUTTONS)}':'/bookmarks', '>>':'1'})
+                **{'<<':'-1', f'{user.number_page}/{len(BUTTONS)}':'/bookmarks', '>>':'1'}).as_markup()
         )
 
 @router.callback_query(F.data == '1')
@@ -53,5 +53,5 @@ async def next_page(callback: types.CallbackQuery, user: User) -> None:
             text=f'{BUTTONS[user.number_page]}',
             reply_markup=load_inline_keyboard(
                 **{'<<': '-1', f'{user.number_page}/{len(BUTTONS)}': '/bookmarks', '>>': '1'}
-            )
+            ).as_markup()
         )

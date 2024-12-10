@@ -12,11 +12,11 @@ buttons = {
     '>>': '1'
 }
 
-def load_inline_keyboard(size: tuple[int, ...] = (3,), **kwargs: str) -> InlineKeyboardMarkup:
+def load_inline_keyboard(size: tuple[int, ...] = (3,), repeat: bool = False, **kwargs: str) -> InlineKeyboardBuilder:
 
     keyboard = InlineKeyboardBuilder()
     for button, call in kwargs.items():
         keyboard.button(text=button, callback_data=call)
 
-    keyboard.adjust(*size)
-    return keyboard.as_markup()
+    keyboard.adjust(*size, repeat=repeat)
+    return keyboard
